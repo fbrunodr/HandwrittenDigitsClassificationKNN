@@ -25,9 +25,10 @@ int main() {
         return -1;
 
     // K-nearest neighborhoods code
-    int K = 3;
+    int K = 5;
 
     int numOfErrors = 0;
+    //int fullError = 0;
 
     for(int i = 0; i < test.size(); i++){
         // Saves the K closest training images to test image[i]
@@ -74,14 +75,26 @@ int main() {
         }
 
 
-        if( test[i].getLabel() != predicted )
+        if( test[i].getLabel() != predicted ){
             numOfErrors++;
 
-        cout << 100 * double( numOfErrors )/ i << '%' << endl;
+            // Following line prints all the wrong images. Comment it so it won't print them.
+            test[i].print();
+
+            /*if( digits[predicted] == K ){
+                fullError++;
+                cout << "position: " << i << " wrong label: " << predicted << endl;
+            }*/
+        }
+
+        cout << "Errors: " << 100 * double( numOfErrors )/ i << '%' << endl;
+        //cout << "Full Errors: " << 100 * double( fullError )/ i << '%' << endl;
     }
 
     // Print the percentage of wrong predictions
-    cout << 100 * double(numOfErrors) / test.size() << '%' << endl;
+    cout << "Errors: " << 100 * double(numOfErrors) / test.size() << '%' << endl;
+    //cout << "Full Errors: " << 100 * double( fullError )/ test.size() << '%' << endl;
 
     return 0;
 }
+

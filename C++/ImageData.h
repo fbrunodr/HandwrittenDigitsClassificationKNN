@@ -25,7 +25,11 @@ public:
 
     // Comparison Function
     double distanceSquared(const ImageData& otherImg);
+
+    // Print Image
+    void print();
 };
 
 
 #endif //DIGITSCLASSIFICATION_IMAGEDATA_H
+

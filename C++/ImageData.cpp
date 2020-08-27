@@ -4,6 +4,10 @@
 
 #include "ImageData.h"
 
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+
 // Constructors
 ImageData::ImageData() {
     this->label = -1;
@@ -35,4 +39,20 @@ double ImageData::distanceSquared(const ImageData &otherImg) {
         distance += pow( this->image[i] - otherImg.image[i], 2 );
 
     return distance;
+}
+
+void ImageData::print(){
+    int dim = sqrt( this->image.size() );
+
+    char* pixels = new char[dim * dim];
+
+    for(int i = 0; i < dim * dim; i++)
+        pixels[i] = char( this->image[i] ); 
+
+    // convert it to cv Mat, and show it
+    cv::Mat image_tmp(dim,dim,CV_8UC1,pixels);
+    // resize bigger for showing
+    cv::resize(image_tmp, image_tmp, cv::Size(300, 300));
+    cv::imshow(to_string(this->label), image_tmp);
+    cv::waitKey(0);
 }
