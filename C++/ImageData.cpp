@@ -11,22 +11,26 @@
 // Constructors
 ImageData::ImageData() {
     this->label = -1;
+    this->rows = 0;
+    this->cols = 0;
     vector<int> defaultVec;
     this->image = defaultVec;
 }
 
-ImageData::ImageData(int label, const vector<int> &image) {
+ImageData::ImageData(int label, const vector<int> &image, int rows, int collumns) {
     this->label = label;
+    this->rows = rows;
+    this->cols = collumns;
     this->image = image;
 }
 
 // Get properties
 int ImageData::getLabel() {
-    return this->label;
+    return label;
 }
 
 vector<int> ImageData::getImageVector() {
-    return this->image;
+    return image;
 }
 
 // Comparison Function
@@ -42,17 +46,15 @@ double ImageData::distanceSquared(const ImageData &otherImg) {
 }
 
 void ImageData::print(){
-    int dim = sqrt( this->image.size() );
+    char* pixels = new char[rows * cols];
 
-    char* pixels = new char[dim * dim];
-
-    for(int i = 0; i < dim * dim; i++)
-        pixels[i] = char( this->image[i] ); 
+    for(int i = 0; i < rows * cols; i++)
+        pixels[i] = char( image[i] ); 
 
     // convert it to cv Mat, and show it
-    cv::Mat image_tmp(dim,dim,CV_8UC1,pixels);
+    cv::Mat image_tmp(rows,cols,CV_8UC1,pixels);
     // resize bigger for showing
-    cv::resize(image_tmp, image_tmp, cv::Size(300, 300));
-    cv::imshow(to_string(this->label), image_tmp);
+    cv::resize(image_tmp, image_tmp, cv::Size(rows * 10, cols * 10) );
+    cv::imshow(to_string(label), image_tmp);
     cv::waitKey(0);
 }

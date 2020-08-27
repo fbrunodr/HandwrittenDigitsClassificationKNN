@@ -75,7 +75,7 @@ vector<ImageData> read_mnist(const char* image_filename, const char* label_filen
                 intPixels[i] += 256;
         }
 
-        processedData.push_back( ImageData(intLabel, intPixels) );
+        processedData.push_back( ImageData(intLabel, intPixels, rows, cols) );
     }
 
     delete[] pixels;

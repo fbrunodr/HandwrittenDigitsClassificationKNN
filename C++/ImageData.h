@@ -12,12 +12,14 @@ using namespace std;
 class ImageData {
 private:
     int label;          // The correct digit associated with the image
+    int rows;
+    int cols;
     vector<int> image;  // Vector containing each pixel value (from 0 to 255) in order
 
 public:
     // Constructors
     ImageData();
-    ImageData(int label, const vector<int>& image);
+    ImageData(int label, const vector<int>& image, int rows, int collumns);
 
     // Return its properties
     int getLabel();
